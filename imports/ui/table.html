@@ -1,0 +1,36 @@
+<template name="table">  
+ 
+  
+    {{#if check_cur_table 'stuff'}}
+      {{> stuff}}    
+    {{/if}}
+
+    {{#if check_cur_table 'cargo_type'}}
+      {{> cargo_type}}    
+    {{/if}}
+    
+    {{#if check_cur_table 'condition'}}
+    {{> condition}} 
+    {{/if}}
+
+    {{#if check_cur_table 'moving_info'}}
+      {{> moving_info}} 
+    {{/if}}    
+
+    {{#if check_cur_table 'cars'}}
+      {{> cars}} 
+    {{/if}}
+
+    {{#if check_cur_table 'drivers'}}
+      {{> drivers}} 
+    {{/if}}
+    
+    {{#if check_cur_table 'clients'}}
+      {{> clients}} 
+    {{/if}}
+    
+    {{#if check_cur_table 'orders'}}
+      {{> orders}} 
+    {{/if}}
+    
+</template>

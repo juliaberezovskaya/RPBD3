@@ -1,0 +1,33 @@
+<body>
+    <div class="container">
+        <header>
+            <h1>Database</h1>
+            <div class="login">
+                {{> loginButtons}}
+                {{#if isInRole 'admin'}}
+                <span id="admin_dash"><u>Admin dashboard</u></span>
+                {{/if}}
+            </div>
+            <div class="tables_list_block">
+                <div class="table_list">
+                    <label for="tables_list">Tables: </label>
+                    <select id="table_in_list" name="tables_list">
+                        {{#each elem in table_name_list}}
+                        <option value={{elem}}>
+                            {{elem}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+        </header>
+
+        {{#if currentUser}}
+        {{#if isDashboard}}
+        {{> users_}}
+        {{else}}
+        {{> table}}
+        {{/if}}
+        {{/if}}
+    </div>
+</body>

@@ -1,0 +1,47 @@
+<template name="condition">
+  <div>
+    {{#if isInRole 'admin'}}
+    <div>
+      <form class="my_form">
+        <div class="my_form">
+          <label for="condition">Condition name: </label>
+          <input type="text" name="condition" required>
+        </div>
+        <div class="my_form">
+          <input type="submit" value="Submit">
+        </div>
+      </form>
+    </div>
+    {{/if}}
+    <div class="table_name">Condition</div>
+    <ul>
+      {{#each elem in condition}}
+      {{> condition_ elem=elem}}
+      {{#if checked elem._id}}
+      {{> param_condition elem = elem}}
+      {{/if}}
+      {{/each}}
+    </ul>
+  </div>
+</template>
+
+<template name="condition_">
+  <li class="one_el" id={{elem._id}}>
+    {{#if isInRole 'admin'}}
+    <button class="delete">&times;</button>
+    {{/if}}
+    <span class="text">{{elem.condition}}</span>
+  </li>
+</template>
+
+<template name="param_condition">
+  <form class="info_condition">
+    <div class="info_condition">
+      <label for="condition">Condition name: </label>
+      <input type="text" name="condition" value={{elem.condition}} required>
+    </div>
+    <div class="info_condition">
+      <input type="submit" value="Submit">
+    </div>
+  </form>
+</template>

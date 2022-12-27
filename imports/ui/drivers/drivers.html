@@ -1,0 +1,101 @@
+<template name="drivers">
+    <div>
+        {{#if isInRole 'admin'}}
+        <div>
+            <form class="my_form">
+                <div class="my_form">
+                    <label for="category">Category: </label>
+                    <input type="text" name="category" required>
+                </div>
+                <div class="my_form">
+                    <label for="expirience">Expirience: </label>
+                    <input type="number" name="expirience" required>
+                </div>
+                <div class="my_form">
+                    <label for="id_car">Car: </label>
+                    <select name="id_car">
+                        {{#each elem in cars}}
+                        <option value={{elem._id}}>
+                            {{elem.brand}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="my_form">
+                    <label for="id_stuff">Stuff: </label>
+                    <select name="id_stuff">
+                        {{#each elem in stuff}}
+                        <option value={{elem._id}}>
+                            {{elem.snm}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="my_form">
+                    <input type="submit" value="Submit">
+                </div>
+            </form>
+        </div>
+        {{/if}}
+        <div class="table_name">Drivers</div>
+        <ul>
+            {{#each elem in drivers}}
+            {{> driver elem=elem}}
+            {{#if isInRole 'admin'}}
+            {{#if checked elem._id}}
+            {{> param_drivers elem=elem}}
+            {{/if}}
+            {{/if}}
+            {{/each}}
+        </ul>
+    </div>
+</template>
+
+<template name="driver">
+    <li class="one_driver" id={{elem._id}}>
+        {{#if isInRole 'admin'}}
+        <button class="delete">&times;</button>
+        {{/if}}
+        <span class="text"><b>{{stuff_name elem.id_stuff}}</b><br />&nbsp;&nbsp;&nbsp;
+            Категория: {{elem.category}}<br />&nbsp;&nbsp;&nbsp;
+            Опыт: {{elem.expirience}}<br />&nbsp;&nbsp;&nbsp;
+            Машина: {{cars_name elem.id_car}}
+        </span>
+    </li>
+</template>
+
+<template name="param_drivers">
+    <form class="info_drivers">
+        <div class="info_drivers">
+            <label for="category">Category: </label>
+            <input type="text" name="category" value={{elem.category}} required>
+        </div>
+        <div class="info_drivers">
+            <label for="expirience">Expirience: </label>
+            <input type="number" name="expirience" value={{elem.expirience}} required>
+        </div>
+        <div class="info_drivers">
+            <label for="id_car">Car: </label>
+            <select name="id_car">
+                {{#each elem in cars}}
+                <option value={{elem._id}}>
+                    {{elem.brand}}
+                </option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="info_drivers">
+            <label for="id_stuff">Stuff: </label>
+            <select name="id_stuff">
+                {{#each elem in stuff}}
+                <option value={{elem._id}}>
+                    {{elem.snm}}
+                </option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="info_drivers">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+  </template>

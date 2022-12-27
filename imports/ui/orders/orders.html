@@ -1,0 +1,129 @@
+<template name="orders"> 
+    <div>
+        {{#if isInRole 'admin'}}
+          <div>
+                <form class="my_form">
+                    <div class="my_form">
+                        <label for="date">Date: </label>
+                        <input type="text" name="date" required>
+                    </div>
+                    <div class="my_form">
+                        <label for="sub_address">Submission address: </label>
+                        <input type="text" name="sub_address" required>
+                    </div>
+                    <div class="my_form">
+                      <label for="dest_address">Destination address: </label>
+                      <input type="text" name="dest_address" required>
+                    </div>
+                    <div class="my_form">
+                        <label for="exec_date">Execution date: </label>
+                        <input type="text" name="exec_date" required>
+                    </div>
+                    <div class="my_form">
+                        <label for="price">Price: </label>
+                        <input type="number" name="price" required>
+                    </div>
+                    <div class="my_form">
+                        <label for="id_driver">Driver: </label>
+                        <select name="id_driver">
+                            {{#each elem in drivers}}
+                            <option value={{elem._id}}>
+                                {{driver_name elem._id}}
+                            </option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="my_form">
+                        <label for="id_client">Client: </label>
+                        <select name="id_client">
+                            {{#each elem in clients}}
+                            <option value={{elem._id}}>
+                                {{elem.snm}}
+                            </option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="my_form">
+                        <input type="submit" value="Submit">
+                    </div>
+             </form>
+          </div>
+        {{/if}}
+        <div class="table_name">Orders</div>
+        <ul>
+            {{#each elem in orders}}
+            {{> order elem=elem}}
+            {{#if isInRole 'admin'}}
+            {{#if checked elem._id}}
+            {{> param_orders elem=elem}}
+            {{/if}}
+            {{/if}}
+            {{/each}}
+        </ul> 
+    </div>
+</template>
+    
+<template name="order">
+    <li class="one_order" id={{elem._id}}>
+        {{#if isInRole 'admin'}}
+            <button class="delete">&times;</button>
+        {{/if}}
+        <span class="text"><br/>&nbsp;&nbsp;&nbsp;
+            Дата заказа: {{elem.date}}<br/>&nbsp;&nbsp;&nbsp;
+            Адрес отправки: {{elem.sub_address}}<br/>&nbsp;&nbsp;&nbsp;
+            Адрес получения: {{elem.dest_address}}<br/>&nbsp;&nbsp;&nbsp;
+            Дата выполнения: {{elem.exec_date}}<br/>&nbsp;&nbsp;&nbsp;
+            Цена: {{elem.price}}<br/>&nbsp;&nbsp;&nbsp;
+            Водитель: {{driver_name elem.id_driver}}<br/>&nbsp;&nbsp;&nbsp;
+            Клиент: {{client_name elem.id_client}}
+        </span> 
+    </li>
+</template>
+
+<template name="param_orders">
+    <form class="info_orders">
+        <div class="info_orders">
+            <label for="date">Date: </label>
+            <input type="text" name="date" value={{elem.date}} required>
+        </div>
+        <div class="info_orders">
+            <label for="sub_address">Submission address: </label>
+            <input type="text" name="sub_address" value={{elem.sub_address}} required>
+        </div>
+        <div class="info_orders">
+          <label for="dest_address">Destination address: </label>
+          <input type="text" name="dest_address" value={{elem.dest_address}} required>
+        </div>
+        <div class="info_orders">
+            <label for="exec_date">Execution date: </label>
+            <input type="text" name="exec_date" value={{elem.exec_date}} required>
+        </div>
+        <div class="info_orders">
+            <label for="price">Price: </label>
+            <input type="number" name="price" value={{elem.price}} required>
+        </div>
+        <div class="info_orders">
+            <label for="id_driver">Driver: </label>
+            <select name="id_driver">
+                {{#each elem in drivers}}
+                <option value={{elem._id}}>
+                    {{elem.category}}
+                </option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="info_orders">
+            <label for="id_client">Client: </label>
+            <select name="id_client">
+                {{#each elem in clients}}
+                <option value={{elem._id}}>
+                    {{elem.snm}}
+                </option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="info_orders">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+  </template>

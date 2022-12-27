@@ -1,0 +1,111 @@
+<template name="cars">
+    <div>
+        {{#if isInRole 'admin'}}
+        <div>
+            <form class="my_form">
+                <div class="my_form">
+                    <label for="brand">Brand: </label>
+                    <input type="text" name="brand" required>
+                </div>
+                <div class="my_form">
+                    <label for="number">Car number: </label>
+                    <input type="number" name="number" required>
+                </div>
+                <div class="my_form">
+                    <label for="load_capacity">Load capacity: </label>
+                    <input type="number" name="load_capacity" required>
+                </div>
+                <div class="my_form">
+                    <label for="id_cargo_type">Cargo type: </label>
+                    <select name="id_cargo_type">
+                        {{#each elem in cargo_type}}
+                        <option value={{elem._id}}>
+                            {{elem.cargo}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="my_form">
+                    <label for="id_condition">Condition: </label>
+                    <select name="id_condition">
+                        {{#each elem in condition}}
+                        <option value={{elem._id}}>
+                            {{elem.condition}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="my_form">
+                    <input type="submit" value="Submit">
+                </div>
+            </form>
+        </div>
+        {{/if}}
+        <div class="table_name">Cars</div>
+        <ul>
+            {{#each elem in cars}}
+            {{> car elem=elem}}
+            {{#if isInRole 'admin'}}
+            {{#if checked elem._id}}
+            {{> param_cars elem=elem}}
+            {{/if}}
+            {{/if}}
+            {{/each}}
+        </ul>
+    </div>
+</template>
+
+<template name="car">
+    <li class="one_cars" id={{elem._id}}>
+        {{#if isInRole 'admin'}}
+        <button class="delete">&times;</button>
+        {{/if}}
+        <span class="text"><b></b><br />&nbsp;&nbsp;&nbsp;
+            Бренд: {{elem.brand}}<br />&nbsp;&nbsp;&nbsp;
+            Номер машины: {{elem.number}}<br />&nbsp;&nbsp;&nbsp;
+            Максимальная загрузка: {{elem.load_capacity}}<br />&nbsp;&nbsp;&nbsp;
+            Тип груза: {{cargo_type_name elem.id_cargo_type}}<br />&nbsp;&nbsp;&nbsp;
+            Состояние: {{condition_name elem.id_condition}}
+        </span>
+    </li>
+</template>
+
+<template name="param_cars">
+    <form class="info_cars">
+        <div class="info_cars">
+            <label for="brand">Brand: </label>
+            <input type="text" name="brand" value={{elem.brand}} required>
+        </div>
+        <div class="info_cars">
+            <label for="number">Car number: </label>
+            <input type="number" name="number" value={{elem.number}} required>
+        </div>
+        <div class="info_cars">
+            <label for="load_capacity">Load capacity: </label>
+            <input type="number" name="load_capacity" value={{elem.load_capacity}} required>
+        </div>
+        <div class="info_cars">
+            <label for="id_cargo_type">Cargo type: </label>
+            <select name="id_cargo_type">
+                {{#each elem in cargo_type}}
+                <option value={{elem._id}}>
+                    {{elem.cargo}}
+                </option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="info_cars">
+            <label for="id_condition">Condition: </label>
+            <select name="id_condition">
+                {{#each elem in condition}}
+                <option value={{elem._id}}>
+                    {{elem.condition}}
+                </option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="info_cars">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+  </template>

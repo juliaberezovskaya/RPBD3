@@ -1,0 +1,33 @@
+<template name="users_">
+    {{#if isInRole 'admin'}}
+    <ul>
+        {{#each user in users_list}}
+        {{> one_user user=user}}
+        {{#if checked user._id}}
+        {{> user_param user=user}}
+        {{/if}}
+        {{/each}}
+    </ul>
+    {{/if}}
+</template>
+
+<template name="user_param">
+    <form class="user_info">
+        <div class="user_info">
+            <label for="role">{{user.username}} role: </label>
+            <input type="text" name="role" value={{get_role user._id}} required>
+        </div>
+        <div class="user_info">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</template>
+
+<template name="one_user">
+    <li class="one_user" id={{user._id}}>
+        {{#if not_cur_user user._id}}
+        <button class="delete">&times;</button>
+        {{/if}}
+        <span class="one_user" id={{user._id}}>{{user.username}}</span>
+    </li>
+</template>

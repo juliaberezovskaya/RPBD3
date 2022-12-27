@@ -1,0 +1,49 @@
+<template name="cargo_type">
+  <div>
+    {{#if isInRole 'admin'}}
+    <div>
+      <form class="my_form">
+        <div class="my_form">
+          <label for="cargo">Cargo type name: </label>
+          <input type="text" name="cargo" required>
+        </div>
+        <div class="my_form">
+          <input type="submit" value="Submit">
+        </div>
+      </form>
+    </div>
+    {{/if}}
+    <div class="table_name">Cargo type</div>
+    <ul>
+      {{#each elem in cargo_type}}
+      {{> cargo elem=elem}}
+      {{#if isInRole 'admin'}}
+      {{#if checked elem._id}}
+      {{> param elem=elem}}
+      {{/if}}
+      {{/if}}
+      {{/each}}
+    </ul>
+  </div>
+</template>
+
+<template name="cargo">
+  <li class="one" id={{elem._id}}>
+    {{#if isInRole 'admin'}}
+    <button class="delete">&times;</button>
+    {{/if}}
+    <span class="text">{{elem.cargo}}</span>
+  </li>
+</template>
+
+<template name="param">
+  <form class="info">
+    <div class="info">
+      <label for="cargo">Cargo type name: </label>
+      <input type="text" name="cargo" value={{elem.cargo}} required>
+    </div>
+    <div class="info">
+      <input type="submit" value="Submit">
+    </div>
+  </form>
+</template>

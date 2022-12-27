@@ -1,0 +1,99 @@
+<template name="moving_info">
+    <div>
+        {{#if isInRole 'admin'}}
+        <div>
+            <form class="my_form">
+                <div class="my_form">
+                    <label for="position">Position: </label>
+                    <input type="text" name="position" required>
+                </div>
+                <div class="my_form">
+                    <label for="reasons_for_transfer">Reasons for transfer: </label>
+                    <input type="text" name="reasons_for_transfer" required>
+                </div>
+                <div class="my_form">
+                    <label for="order_number">Order number: </label>
+                    <input type="number" name="order_number" required>
+                </div>
+                <div class="my_form">
+                    <label for="order_date">Order date: </label>
+                    <input type="text" name="order_date" required>
+                </div>
+                <div class="my_form">
+                    <label for="id_stuff">Stuff: </label>
+                    <select name="id_stuff">
+                        {{#each elem in stuff}}
+                        <option value={{elem._id}}>
+                            {{elem.snm}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="my_form">
+                    <input type="submit" value="Submit">
+                </div>
+            </form>
+        </div>
+        {{/if}}
+        <div class="table_name">Moving information</div>
+        <ul>
+            {{#each elem in moving_info}}
+            {{> moving_info_ elem=elem}}
+            {{#if isInRole 'admin'}}
+            {{#if checked elem._id}}
+            {{> param_moving_info elem=elem}}
+            {{/if}}
+            {{/if}}
+            {{/each}}
+        </ul>
+    </div>
+</template>
+
+<template name="moving_info_">
+    <li class="one_moving_info" id={{elem._id}}>
+        {{#if isInRole 'admin'}}
+        <button class="delete">&times;</button>
+        {{/if}}
+        <span class="text"><br />&nbsp;&nbsp;&nbsp;
+            Должность: {{elem.position}}<br />&nbsp;&nbsp;&nbsp;
+            Причина перевода: {{elem.reasons_for_transfer}}<br />&nbsp;&nbsp;&nbsp;
+            Номер приказа: {{elem.order_number}}<br />&nbsp;&nbsp;&nbsp;
+            Дата приказа: {{elem.order_date}}<br />&nbsp;&nbsp;&nbsp;
+            Сотрудник: {{stuff_name elem.id_stuff}}
+        </span>
+    </li>
+</template>
+
+<template name="param_moving_info">
+    <form class="info_moving_info">
+        <div class="info_moving_info">
+            <label for="position">Position: </label>
+            <input type="text" name="position"  value={{elem.position}} required>
+        </div>
+        <div class="info_moving_info">
+            <label for="reasons_for_transfer">Reasons for transfer: </label>
+            <input type="text" name="reasons_for_transfer"  value={{elem.reasons_for_transfer}} required>
+        </div>
+        <div class="info_moving_info">
+            <label for="order_number">Order number: </label>
+            <input type="number" name="order_number"  value={{elem.order_number}} required>
+        </div>
+        <div class="info_moving_info">
+            <label for="order_date">Order date: </label>
+            <input type="text" name="order_date"  value={{elem.order_date}} required>
+        </div>
+        <div class="info_moving_info">
+            <label for="id_stuff">Stuff: </label>
+            <select name="id_stuff">
+                {{#each elem in stuff}}
+                <option value={{elem._id}}>
+                    {{elem.snm}}
+                </option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="info_moving_info">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+  </template>
